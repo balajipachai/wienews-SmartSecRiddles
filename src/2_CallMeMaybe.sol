@@ -4,7 +4,6 @@ pragma solidity ^0.8.22;
 import "./interfaces/IERC20.sol";
 
 contract CallMeMaybe {
-
     address token;
     mapping(address => uint256) depositAmount;
     mapping(address => bool) depositers;
@@ -15,7 +14,6 @@ contract CallMeMaybe {
 
     // Join the group
     function joinGroup(uint256 _amount) external {
-
         IERC20(token).transferFrom(msg.sender, address(this), _amount);
 
         depositers[msg.sender] = true;
@@ -37,7 +35,9 @@ contract CallMeMaybe {
         // make call here
         _target.call(_calldata);
 
-        require(IERC20(token).balanceOf(address(this)) >= startBalance, "Isn't the point of crypto to trust each other, smh");
+        require(
+            IERC20(token).balanceOf(address(this)) >= startBalance,
+            "Isn't the point of crypto to trust each other, smh"
+        );
     }
-
 }
