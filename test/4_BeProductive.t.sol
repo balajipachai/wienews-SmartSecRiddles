@@ -26,6 +26,9 @@ contract BeProductiveTest is Test {
 
 
  
+    /**
+    Learning: Be Careful when dealing with memory & storage state variable changes.
+    */
     function test_GetThisPassing_4() public {
         address hacker = address(0xBAD);
         

